@@ -28,7 +28,7 @@ CREATE TABLE "peliculas" (
 	"url_caratula"	TEXT,
 	"id_genero"	INTEGER NOT NULL,
 	"es_animacion"	INTEGER,
-	PRIMARY KEY("id")
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
 CREATE TABLE "repartos" (
@@ -37,17 +37,3 @@ CREATE TABLE "repartos" (
 	PRIMARY KEY("id_pelicula")
 );
 
-/*
-INSERT INTO tipos_movimiento (id, descripcion) VALUES("I", "INGRESOS");
-INSERT INTO tipos_movimiento (id, descripcion) VALUES("G", "GASTOS");
-
-INSERT INTO categorias (tipo_movimiento, id, descripcion) VALUES ("I", 1, "EMPLEO");
-INSERT INTO categorias (tipo_movimiento, id, descripcion) VALUES ("I", 2, "PASIVO");
-INSERT INTO categorias (tipo_movimiento, id, descripcion) VALUES ("I", 3, "NEGOCIOS");
-INSERT INTO categorias (tipo_movimiento, id, descripcion) VALUES ("I", 4, "PENSIONES");
-INSERT INTO categorias (tipo_movimiento, id, descripcion) VALUES ("I", 5, "OTROS");
-
-INSERT INTO categorias (tipo_movimiento, id, descripcion) VALUES ("G", 1, "NECESIDAD");
-INSERT INTO categorias (tipo_movimiento, id, descripcion) VALUES ("G", 2, "OCIO");
-INSERT INTO categorias (tipo_movimiento, id, descripcion) VALUES ("G", 3, "CULTURA");
-INSERT INTO categorias (tipo_movimiento, id, descripcion) VALUES ("G", 4, "EXTRA");
