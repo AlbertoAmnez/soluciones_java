@@ -11,9 +11,12 @@ public class Pelicula {
 
     private int año;
 
+
+    private String url_caratula;
+
+   
     private Genero genero;
 
-    
 
     private boolean animacion;
 
@@ -21,12 +24,14 @@ public class Pelicula {
     private int id;
 
 
-    public Pelicula (String titulo, Director director, int año, Genero genero, boolean animacion) {
+    public Pelicula (String titulo, Director director, int año, String url_caratula, Genero genero, boolean animacion) {
         this.titulo = titulo;
         this.director = director;
         this.año = año;
+        this.url_caratula = url_caratula;
         this.genero = genero;
         this.animacion = animacion;
+        
 
     
     }
@@ -62,6 +67,16 @@ public class Pelicula {
     public void setAño(Integer año) {
         this.año = año;
     }
+
+    public String getUrl_caratula() {
+        return url_caratula;
+    }
+
+
+    public void setUrl_Caratula(String url_caratula) {
+        this.url_caratula = url_caratula;
+    }
+
 
     public Genero getGenero() {
         return genero;
