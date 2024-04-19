@@ -18,7 +18,7 @@ public class TestModelos {
     @Test
     public void testConsultaPelicula() {
         Director director = new Director("Randal Kleiser");
-        Pelicula film = new Pelicula("Grease", director, 1978, Genero.MUSICAL, false );
+        Pelicula film = new Pelicula("Grease", director, 1978, null, Genero.MUSICAL, false );
 
         assertEquals(film.getTitulo(), "Grease");
         assertEquals(film.getDirector().getNombre(), "Randal Kleiser");

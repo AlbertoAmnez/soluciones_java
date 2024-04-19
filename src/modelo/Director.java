@@ -35,12 +35,10 @@ public class Director {
         return urlFoto;
     }
 
-
     public void setUrlFoto(String url_foto) {
         this.urlFoto = url_foto;
     }
     
-
     public String getUrlWeb() {
         return urlWeb;
     }

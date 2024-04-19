@@ -24,7 +24,7 @@ public class PeliculaDAO {
         String sql = "SELECT p.titulo, p.año, p.url_caratula, p.id_genero, p.es_animacion, d.nombre AS nombre_director " +
         "FROM peliculas p " +
         "INNER JOIN directores d ON p.id_director = d.id " +
-        "LEFT JOIN generos g ON p.id_genero = g.id " + // Agrega un espacio al final de esta línea
+        "LEFT JOIN generos g ON p.id_genero = g.id " + 
         "ORDER BY p.id_genero, p.año DESC, p.titulo";
         
 
@@ -109,7 +109,7 @@ public class PeliculaDAO {
         try {
             Connection conexion = new Conexion().getConnection(path); 
             
-            // Obtener información básica de la película
+            
             PreparedStatement sentenciaSQLPelicula = conexion.prepareStatement(sqlPelicula); 
             sentenciaSQLPelicula.setString(1, nombre); 
             ResultSet resultadoPelicula = sentenciaSQLPelicula.executeQuery();
