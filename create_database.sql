@@ -3,6 +3,7 @@ CREATE TABLE "artistas" (
 	"nombre"	TEXT NOT NULL,
 	"url_foto"	TEXT,
 	"url_web"	TEXT,
+	FOREIGN KEY("id") REFERENCES "repartos"("id_artista"),
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
@@ -23,20 +24,22 @@ CREATE TABLE "generos" (
 CREATE TABLE "peliculas" (
 	"id"	INTEGER NOT NULL,
 	"titulo"	TEXT NOT NULL,
-	"id_director"	INTEGER NOT NULL,
+	"id_director"	INTEGER,
 	"año"	INTEGER NOT NULL,
 	"url_caratula"	TEXT,
-	"id_genero"	INTEGER NOT NULL,
+	"id_genero"	INTEGER,
 	"es_animacion"	INTEGER,
-	PRIMARY KEY("id" AUTOINCREMENT)
+	PRIMARY KEY("id" AUTOINCREMENT),
+	FOREIGN KEY("id_director") REFERENCES "directores"("id"),
+	FOREIGN KEY("id_genero") REFERENCES "generos"("id")
 );
 
 CREATE TABLE "repartos" (
 	"id_pelicula"	INTEGER NOT NULL,
-	"id_artistas"	INTEGER NOT NULL,
-	FOREIGN KEY("id_pelicula") REFERENCES "peliculas"("id"),
+	"id_artista"	INTEGER NOT NULL,
 	FOREIGN KEY("id_artista") REFERENCES "artistas"("id"),
-	PRIMARY KEY("id_pelicula")
+	FOREIGN KEY("id_pelicula") REFERENCES "peliculas"("id"),
+	PRIMARY KEY("id_pelicula","id_artista")
 );
 
 INSERT INTO peliculas (id, titulo, id_director, año, id_genero, es_animacion) VALUES (1, "Goodfellas", 3 , "1990", 4 , False );

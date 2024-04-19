@@ -72,12 +72,12 @@ public class TestDAO {
     }
 
     @Test
-    public void testEliminarID() throws SQLException {
+    public void testEliminarDirectorID() throws SQLException {
 
-        PeliculaDAO peliculaDAO = new PeliculaDAO("./soluciones.sqlite");
+        DirectorDAO idDirector = new DirectorDAO("./soluciones.sqlite");
         
         int id = 1;
-        peliculaDAO.eliminarID(id);
+        idDirector.eliminarID(id);
         
     }
 

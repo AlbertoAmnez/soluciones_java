@@ -94,32 +94,30 @@ public class Main {
 
     */
     public static void main(String[] args) {
-        
-        String path = "./soluciones.sqlite";
+
+        // Para comprobar que me saca la lista de peliculas en una tabla a traves de mi consola.
     
-        
-        DirectorDAO modificacion = new DirectorDAO(path);
-    
+    String path = "./soluciones.sqlite";
+
+        // Crear una instancia de PeliculaDAO
+        PeliculaDAO peliculaDAO = new PeliculaDAO(path);
+
         try {
-            
-            int idDirector = 1; // ID de la película que deseas modificar
-            Director directorAModificar = modificacion.buscaPorID(idDirector);
-    
-            
-            if (directorAModificar != null) {
-                // Realizar los cambios necesarios en la película
-                directorAModificar.setId(123); // 
-                directorAModificar.setNombre("Julian"); 
-    
-                
-                modificacion.modifica(directorAModificar);
-            } else {
-                System.out.println("No se encontró ninguna película con el ID " + idDirector);
+            // Obtener todas las películas
+            ArrayList<Pelicula> peliculas = peliculaDAO.dameTodas();
+
+            // Imprimir información de todas las películas
+            System.out.println("Lista de películas:");
+            for (Pelicula pelicula : peliculas) {
+                System.out.println(pelicula);
             }
+
         } catch (SQLException e) {
+            System.out.println("Error al intentar obtener todas las películas: " + e.getMessage());
             e.printStackTrace();
         }
     }
+
 }
     
 
