@@ -93,5 +93,16 @@ public class Pelicula {
         this.animacion = animacion;
     }
 
+    public String toString() {
+        String format = "| %-30s | %-30s | %-6d | %-50s | %-20s | %-9s |\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("+--------------------------------+--------------------------------+--------+--------------------------------------------------+----------------------+-----------+\n");
+        sb.append("| Título                         | Director                       | Año    | URL Carátula                                     | Género               | Animación |\n");
+        sb.append("+--------------------------------+--------------------------------+--------+--------------------------------------------------+----------------------+-----------+\n");
+        sb.append(String.format(format, titulo, director.getNombre(), año, url_caratula, genero, animacion ? "Sí" : "No"));
+        sb.append("+--------------------------------+--------------------------------+--------+--------------------------------------------------+----------------------+-----------+\n");
+        return sb.toString();
+    }
+
     
 }

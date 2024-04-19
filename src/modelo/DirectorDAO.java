@@ -92,10 +92,10 @@ public class DirectorDAO {
         
         if (resultado.next()) {
 
-            int directorId = resultado.getInt("id");
+            
             String nombreDirector = resultado.getString("nombre");
             porNombre = new Director(nombreDirector);
-            porNombre.setId(directorId);
+            
             
         }
 
@@ -128,6 +128,38 @@ public class DirectorDAO {
             } else {
                 System.out.println("No se encontró ningún director con el ID " + id + " para borrar.");
             }
+        } catch (SQLException err) {
+            err.printStackTrace();
+        }
+    }
+
+    public void modifica(Director director) throws SQLException {
+
+        String sql = "UPDATE directores SET nombre = ?, url_foto = ?, url_web = ? WHERE id = ?";
+
+        try {
+            
+            Connection conexion = new Conexion().getConnection(path);
+            PreparedStatement sentenciaSQL = conexion.prepareStatement(sql);
+            
+            
+            sentenciaSQL.setString(1, director.getNombre());
+            sentenciaSQL.setString(2, director.getUrlFoto());
+            sentenciaSQL.setString(3, director.getUrlWeb());
+            sentenciaSQL.setInt(4, director.getId());
+            
+            
+            int filasActualizadas = sentenciaSQL.executeUpdate();
+            
+            
+            if (filasActualizadas > 0) {
+                System.out.println("Se ha actualizado el director " + director.getNombre());
+            } else {
+                System.out.println("No se encontró ningún director con el nombre: " + director.getNombre());
+            }
+            
+            sentenciaSQL.close();
+            conexion.close();
         } catch (SQLException err) {
             err.printStackTrace();
         }

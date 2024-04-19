@@ -22,9 +22,11 @@ public class PeliculaDAO {
 
         try {
         String sql = "SELECT p.titulo, p.año, p.url_caratula, p.id_genero, p.es_animacion, d.nombre AS nombre_director " +
-                     "FROM peliculas p " +
-                     "INNER JOIN directores d ON p.id_director = d.id " +
-                     "ORDER BY p.id_genero, p.año DESC, p.titulo";
+        "FROM peliculas p " +
+        "INNER JOIN directores d ON p.id_director = d.id " +
+        "LEFT JOIN generos g ON p.id_genero = g.id " + // Agrega un espacio al final de esta línea
+        "ORDER BY p.id_genero, p.año DESC, p.titulo";
+        
 
         Connection conexion = new Conexion().getConnection(path);
         PreparedStatement sentenciaSQL = conexion.prepareStatement(sql);
@@ -35,7 +37,7 @@ public class PeliculaDAO {
         while (resultado.next()) {
 
             String tituloPelicula = resultado.getString("titulo");
-            int id_director = resultado.getInt("id_director");
+            String nombre_director = resultado.getString("nombre_director");
             int año = resultado.getInt("año");
             String url_caratula = resultado.getString("url_caratula");
             int id_genero = resultado.getInt("id_genero");
@@ -43,14 +45,13 @@ public class PeliculaDAO {
             Genero genero = Genero.values()[id_genero - 1];
 
             DirectorDAO directorDAO = new DirectorDAO(path);
-            Director director = directorDAO.buscaPorID(id_director);
+            Director director = directorDAO.buscaPorNombre(nombre_director);
 
             Pelicula pelicula = new Pelicula(tituloPelicula, director, año, url_caratula, genero, animacion);
             peliculas.add(pelicula);
 
         }
-        resultado.close();
-        sentenciaSQL.close();
+        
 
     } catch (SQLException err) {
         err.printStackTrace();
@@ -81,7 +82,7 @@ public class PeliculaDAO {
                 boolean animacion = resultadoPelicula.getInt("es_animacion") != 0;
                 Genero genero = Genero.values()[id_genero - 1];
                 
-                // Obtener el nombre del director
+                
                 PreparedStatement sentenciaSQLDirector = conexion.prepareStatement(sqlDirector); 
                 sentenciaSQLDirector.setInt(1, id_director);  
                 ResultSet resultadoDirector = sentenciaSQLDirector.executeQuery();
@@ -159,4 +160,38 @@ public class PeliculaDAO {
             err.printStackTrace();
         }
     }
+
+    public void modifica(Pelicula pelicula) throws SQLException {
+        
+        String sql = "UPDATE peliculas SET titulo = ?, id_director = ?, año = ?, url_caratula = ?, id_genero = ?, es_animacion = ? WHERE id = ?";
+        try {
+            Connection conexion = new Conexion().getConnection(path);
+            PreparedStatement sentenciaSQL = conexion.prepareStatement(sql);
+            
+            
+            sentenciaSQL.setString(1, pelicula.getTitulo());
+            sentenciaSQL.setInt(2, pelicula.getDirector().getId());
+            sentenciaSQL.setInt(3, pelicula.getAño());
+            sentenciaSQL.setString(4, pelicula.getUrl_caratula());
+            sentenciaSQL.setInt(5, pelicula.getGenero().getId());
+            sentenciaSQL.setInt(6, pelicula.esAnimacion() ? 1 : 0);
+            sentenciaSQL.setInt(7, pelicula.getId());
+            
+            
+            int filasActualizadas = sentenciaSQL.executeUpdate();
+            
+            
+            if (filasActualizadas > 0) {
+                System.out.println("Se ha actualizado la pelicula " + pelicula.getTitulo());
+            } else {
+                System.out.println("No se encontro ninguna pelicula con el nombre " + pelicula.getTitulo());
+            }
+            
+            sentenciaSQL.close();
+            conexion.close();
+        } catch (SQLException err) {
+            err.printStackTrace();
+        }
+    }
+
 }

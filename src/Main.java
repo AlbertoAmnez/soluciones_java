@@ -9,13 +9,13 @@ import modelo.PeliculaDAO;
 
 public class Main {
 
-    public static void main(String[] args) {
+    
     /* 
         
-    // Crear una instancia de DirectorDAO
+    
     DirectorDAO dao = new DirectorDAO("./soluciones.sqlite");
 
-    // Buscar un director por ID existente
+    
     String nombreExiste = "Pedro Almodovar";
     Director directorExistente = dao.buscaPorNombre(nombreExiste);
     if (directorExistente != null) {
@@ -25,7 +25,7 @@ public class Main {
         System.out.println("No se encontró ningún director con el nombre: " + nombreExiste);
     }
 
-    // Buscar un director por ID que no existe
+    
     String nombreNoExiste = "Clint Eastwood";
     Director directorNoExistente = dao.buscaPorNombre(nombreNoExiste);
     if (directorNoExistente != null) {
@@ -47,10 +47,10 @@ public class Main {
     System.out.print("Ingrese el id de la película: ");
     int id = scanner.nextInt();
 
-    // Buscar la película por nombre
+    
     Pelicula pelicula = peliculaDAO.buscaPorID(id);
 
-    // Verificar si se encontró la película
+    
     if (pelicula != null) {
         // Imprimir los detalles de la película
         System.out.println("Película encontrada:");
@@ -64,33 +64,71 @@ public class Main {
         System.out.println("No se encontró ninguna película con el nombre: " + id);
     }
 
-    // Cerrar el scanner
+    
     scanner.close();
 }
     */
 
-
-    Scanner scanner = new Scanner(System.in);
-
-    // Establecer la ruta de la base de datos
+    // Para comprobar que me saca la lista de peliculas en una tabla a traves de mi consola.
+    /* 
     String path = "./soluciones.sqlite";
 
-    // Crear una instancia de PeliculaDAO
-    PeliculaDAO peliculaDAO = new PeliculaDAO(path);
+        // Crear una instancia de PeliculaDAO
+        PeliculaDAO peliculaDAO = new PeliculaDAO(path);
 
-    // Solicitar al usuario que ingrese el ID de la película a eliminar
-    System.out.print("Ingrese el ID de la película a eliminar: ");
-    int idPelicula = scanner.nextInt();
+        try {
+            // Obtener todas las películas
+            ArrayList<Pelicula> peliculas = peliculaDAO.dameTodas();
 
-    // Eliminar la película por su ID
-    peliculaDAO.eliminarID(idPelicula);
+            // Imprimir información de todas las películas
+            System.out.println("Lista de películas:");
+            for (Pelicula pelicula : peliculas) {
+                System.out.println(pelicula);
+            }
 
-    System.out.println("La película ha sido eliminada correctamente.");
+        } catch (SQLException e) {
+            System.out.println("Error al intentar obtener todas las películas: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
-    // Cerrar el scanner
-    scanner.close();
+    */
+    public static void main(String[] args) {
+        
+        String path = "./soluciones.sqlite";
+    
+        
+        DirectorDAO modificacion = new DirectorDAO(path);
+    
+        try {
+            
+            int idDirector = 1; // ID de la película que deseas modificar
+            Director directorAModificar = modificacion.buscaPorID(idDirector);
+    
+            
+            if (directorAModificar != null) {
+                // Realizar los cambios necesarios en la película
+                directorAModificar.setId(123); // 
+                directorAModificar.setNombre("Julian"); 
+    
+                
+                modificacion.modifica(directorAModificar);
+            } else {
+                System.out.println("No se encontró ninguna película con el ID " + idDirector);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
+    
+
+        
+
+    
+
+
+
 
 
 
