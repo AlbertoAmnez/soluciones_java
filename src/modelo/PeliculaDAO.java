@@ -68,7 +68,7 @@ public class PeliculaDAO {
         try {
             Connection conexion = new Conexion().getConnection(path); 
             
-            // Obtener información básica de la película
+            
             PreparedStatement sentenciaSQLPelicula = conexion.prepareStatement(sqlPelicula); 
             sentenciaSQLPelicula.setInt(1, id);  
             ResultSet resultadoPelicula = sentenciaSQLPelicula.executeQuery();
